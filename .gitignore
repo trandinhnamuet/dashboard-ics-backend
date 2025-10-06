@@ -1,3 +1,5 @@
+# Bỏ qua thư mục uploads chứa ảnh upload
+uploads/
 # compiled output
 /dist
 /node_modules
