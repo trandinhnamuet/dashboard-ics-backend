@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ImageModule } from './images/image.module';
 import { ArticleModule } from './articles/articles.module';
+import { VisitorTrackingModule } from './visitor-tracking/visitor-tracking.module';
 import { typeOrmConfig } from './config/database.config';
 
 @Module({
@@ -26,6 +27,7 @@ import { typeOrmConfig } from './config/database.config';
     }),
     ImageModule,
     ArticleModule,
+    VisitorTrackingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

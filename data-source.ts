@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { Image } from './src/images/image.entity';
+import { VisitorTracking } from './src/visitor-tracking/visitor-tracking.entity';
 
 // Load environment variables
 config();
@@ -12,7 +13,7 @@ export default new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [Image],
+  entities: [Image, VisitorTracking],
   migrations: ['./migrations/*.ts'],
   ssl: {
     rejectUnauthorized: false,
