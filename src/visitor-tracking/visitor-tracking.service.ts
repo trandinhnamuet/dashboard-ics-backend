@@ -2,12 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VisitorTracking } from './visitor-tracking.entity';
+import { MonthlyAccessService } from '../monthly-access/monthly-access.service';
 
 @Injectable()
 export class VisitorTrackingService {
   constructor(
     @InjectRepository(VisitorTracking)
     private visitorTrackingRepository: Repository<VisitorTracking>,
+    private monthlyAccessService: MonthlyAccessService,
   ) {}
 
   async create(id: string): Promise<VisitorTracking> {
@@ -16,6 +18,11 @@ export class VisitorTrackingService {
       access_count: 1,
       page_count: 1,
     });
+    
+    // Cập nhật monthly access
+    await this.monthlyAccessService.increaseAccessCount();
+    await this.monthlyAccessService.increasePageCount();
+    
     return this.visitorTrackingRepository.save(visitor);
   }
 
@@ -32,6 +39,10 @@ export class VisitorTrackingService {
   async incrementPageCount(id: string): Promise<VisitorTracking> {
     const visitor = await this.findOne(id);
     visitor.page_count += 1;
+    
+    // Cập nhật monthly access
+    await this.monthlyAccessService.increasePageCount();
+    
     return this.visitorTrackingRepository.save(visitor);
   }
 
@@ -39,6 +50,11 @@ export class VisitorTrackingService {
     const visitor = await this.findOne(id);
     visitor.access_count += 1;
     visitor.page_count += 1; // Truy cập trang chủ cũng tăng page count
+    
+    // Cập nhật monthly access
+    await this.monthlyAccessService.increaseAccessCount();
+    await this.monthlyAccessService.increasePageCount();
+    
     return this.visitorTrackingRepository.save(visitor);
   }
 
