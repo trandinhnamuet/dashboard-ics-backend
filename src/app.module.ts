@@ -9,6 +9,7 @@ import { ImageModule } from './images/image.module';
 import { ArticleModule } from './articles/articles.module';
 import { VisitorTrackingModule } from './visitor-tracking/visitor-tracking.module';
 import { MonthlyAccessModule } from './monthly-access/monthly-access.module';
+import { DailyAccessModule } from './daily-access/daily-access.module';
 import { typeOrmConfig } from './config/database.config';
 
 @Module({
@@ -30,6 +31,7 @@ import { typeOrmConfig } from './config/database.config';
     ArticleModule,
     VisitorTrackingModule,
     MonthlyAccessModule,
+    DailyAccessModule,
   ],
   controllers: [AppController],
   providers: [AppService],

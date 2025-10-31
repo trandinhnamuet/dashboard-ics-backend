@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VisitorTracking } from './visitor-tracking.entity';
 import { MonthlyAccessService } from '../monthly-access/monthly-access.service';
+import { DailyAccessService } from '../daily-access/daily-access.service';
 
 @Injectable()
 export class VisitorTrackingService {
@@ -10,6 +11,7 @@ export class VisitorTrackingService {
     @InjectRepository(VisitorTracking)
     private visitorTrackingRepository: Repository<VisitorTracking>,
     private monthlyAccessService: MonthlyAccessService,
+    private dailyAccessService: DailyAccessService,
   ) {}
 
   async create(id: string): Promise<VisitorTracking> {
@@ -22,6 +24,10 @@ export class VisitorTrackingService {
     // Cập nhật monthly access
     await this.monthlyAccessService.increaseAccessCount();
     await this.monthlyAccessService.increasePageCount();
+    
+    // Cập nhật daily access
+    await this.dailyAccessService.incrementAccessCount();
+    await this.dailyAccessService.incrementPageCount();
     
     return this.visitorTrackingRepository.save(visitor);
   }
@@ -43,6 +49,9 @@ export class VisitorTrackingService {
     // Cập nhật monthly access
     await this.monthlyAccessService.increasePageCount();
     
+    // Cập nhật daily access
+    await this.dailyAccessService.incrementPageCount();
+    
     return this.visitorTrackingRepository.save(visitor);
   }
 
@@ -54,6 +63,10 @@ export class VisitorTrackingService {
     // Cập nhật monthly access
     await this.monthlyAccessService.increaseAccessCount();
     await this.monthlyAccessService.increasePageCount();
+    
+    // Cập nhật daily access
+    await this.dailyAccessService.incrementAccessCount();
+    await this.dailyAccessService.incrementPageCount();
     
     return this.visitorTrackingRepository.save(visitor);
   }

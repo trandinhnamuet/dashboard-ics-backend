@@ -4,11 +4,13 @@ import { VisitorTrackingController } from './visitor-tracking.controller';
 import { VisitorTrackingService } from './visitor-tracking.service';
 import { VisitorTracking } from './visitor-tracking.entity';
 import { MonthlyAccessModule } from '../monthly-access/monthly-access.module';
+import { DailyAccessModule } from '../daily-access/daily-access.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([VisitorTracking]),
-    MonthlyAccessModule
+    MonthlyAccessModule,
+    DailyAccessModule
   ],
   controllers: [VisitorTrackingController],
   providers: [VisitorTrackingService],
